@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 3: Pago - Sistema de Reservas</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/step-3.css">
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">Hotel Reservas</h1>
+                <nav class="header-nav">
+                    <button class="btn-icon" aria-label="Menú">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="btn-text">ES</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step completed">
+                    <span class="step-number">✓</span>
+                    <span class="step-label">Fechas</span>
+                </div>
+                <div class="step completed">
+                    <span class="step-number">✓</span>
+                    <span class="step-label">Habitaciones</span>
+                </div>
+                <div class="step active">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Pago</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-label">Confirmación</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="payment-container">
+                <!-- Payment Form -->
+                <div class="payment-form">
+                    <!-- Guest Information -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">Datos del huésped</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">Nombre *</label>
+                                <input type="text" id="firstName" class="input-field" required>
+                                <span class="form-error" id="firstNameError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Apellidos *</label>
+                                <input type="text" id="lastName" class="input-field" required>
+                                <span class="form-error" id="lastNameError"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" id="email" class="input-field" required>
+                                <span class="form-error" id="emailError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Teléfono *</label>
+                                <input type="tel" id="phone" class="input-field" required>
+                                <span class="form-error" id="phoneError"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country" class="form-label">País *</label>
+                            <select id="country" class="select-field" required>
+                                <option value="">Selecciona un país</option>
+                                <option value="ES">España</option>
+                                <option value="FR">Francia</option>
+                                <option value="DE">Alemania</option>
+                                <option value="IT">Italia</option>
+                                <option value="GB">Reino Unido</option>
+                                <option value="US">Estados Unidos</option>
+                                <option value="MX">México</option>
+                                <option value="AR">Argentina</option>
+                                <option value="CO">Colombia</option>
+                                <option value="CL">Chile</option>
+                            </select>
+                            <span class="form-error" id="countryError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="specialRequests" class="form-label">Solicitudes especiales (opcional)</label>
+                            <textarea id="specialRequests" class="textarea-field" rows="3" 
+                                      placeholder="Indícanos si tienes alguna petición especial..."></textarea>
+                        </div>
+                    </section>
+                    
+                    <!-- Payment Method -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">Método de pago</h3>
+                        
+                        <div class="payment-methods">
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <div class="method-content">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                    <span>Tarjeta de crédito/débito</span>
+                                </div>
+                            </label>
+                            
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                <div class="method-content">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8.32 21.97a.546.546 0 01-.26-.32c-.03-.15-.06.11.6-8.42-.6.19-1.28.27-1.95.23-.85-.06-1.66-.35-2.38-.84-.75-.51-1.37-1.21-1.75-2.05-.34-.78-.5-1.64-.46-2.51.03-.72.2-1.42.52-2.05.37-.72.91-1.34 1.62-1.78.72-.44 1.57-.65 2.43-.63.79.03 1.54.29 2.19.75.28.2.54.43.77.69l.01-.03c.15-.56.39-1.08.73-1.5.43-.55 1.04-.92 1.74-1.01.48-.06.97 0 1.44.18.49.19.91.51 1.25.94.38.48.61 1.08.66 1.71.03.35.01.7-.05 1.04-.12.66-.37 1.28-.73 1.83-.36.55-.81 1.04-1.33 1.43-.52.39-1.09.69-1.69.9-.45.15-.9.24-1.36.28l-.24.02c-.36.02-.71 0-1.06-.06-.42-.08-.82-.21-1.21-.39-.11-.05-.21-.1-.31-.16l-.03.43c-.13 1.72-.26 3.43-.39 5.15-.08 1.06-.16 2.12-.24 3.18-.05.67-.11 1.35-.16 2.02-.01.16-.03.31-.03.47 0 .15-.11.29-.26.3l-2.73.11z"/>
+                                    </svg>
+                                    <span>PayPal</span>
+                                </div>
+                            </label>
+                            
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="hotel">
+                                <div class="method-content">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zM6.5 13c-2.49 0-4.5 2.01-4.5 4.5S4.01 22 6.5 22 11 19.99 11 17.5 8.99 13 6.5 13z"/>
+                                    </svg>
+                                    <span>Pagar en el hotel</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <!-- Card Details -->
+                        <div id="cardDetails" class="card-details">
+                            <div class="form-group">
+                                <label for="cardNumber" class="form-label">Número de tarjeta *</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="cardNumber" class="input-field" 
+                                           placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    <div class="card-icons">
+                                        <img src="https://cdn.jsdelivr.net/gh/muhammederdem/credit-card-form/src/assets/images/visa.png" 
+                                             alt="Visa" class="card-icon" id="visaIcon">
+                                        <img src="https://cdn.jsdelivr.net/gh/muhammederdem/credit-card-form/src/assets/images/mastercard.png" 
+                                             alt="Mastercard" class="card-icon" id="mastercardIcon">
+                                        <img src="https://cdn.jsdelivr.net/gh/muhammederdem/credit-card-form/src/assets/images/amex.png" 
+                                             alt="Amex" class="card-icon" id="amexIcon">
+                                    </div>
+                                </div>
+                                <span class="form-error" id="cardNumberError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardHolder" class="form-label">Titular de la tarjeta *</label>
+                                <input type="text" id="cardHolder" class="input-field" 
+                                       placeholder="NOMBRE APELLIDO" required>
+                                <span class="form-error" id="cardHolderError"></span>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cardExpiry" class="form-label">Fecha de vencimiento *</label>
+                                    <input type="text" id="cardExpiry" class="input-field" 
+                                           placeholder="MM/AA" maxlength="5" required>
+                                    <span class="form-error" id="cardExpiryError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardCvv" class="form-label">CVV *</label>
+                                    <div class="input-with-tooltip">
+                                        <input type="text" id="cardCvv" class="input-field" 
+                                               placeholder="123" maxlength="4" required>
+                                        <span class="tooltip-trigger">?</span>
+                                        <div class="tooltip">
+                                            El código CVV son los 3 dígitos en la parte posterior de tu tarjeta
+                                        </div>
+                                    </div>
+                                    <span class="form-error" id="cardCvvError"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- PayPal Details -->
+                        <div id="paypalDetails" class="paypal-details" style="display: none;">
+                            <p class="paypal-info">Serás redirigido a PayPal para completar el pago de forma segura.</p>
+                            <button type="button" class="btn-paypal">
+                                <svg width="100" height="24" viewBox="0 0 100 24" fill="white">
+                                    <path d="M8.32 21.97a.546.546 0 01-.26-.32c-.03-.15-.06.11.6-8.42-.6.19-1.28.27-1.95.23-.85-.06-1.66-.35-2.38-.84-.75-.51-1.37-1.21-1.75-2.05-.34-.78-.5-1.64-.46-2.51.03-.72.2-1.42.52-2.05.37-.72.91-1.34 1.62-1.78.72-.44 1.57-.65 2.43-.63.79.03 1.54.29 2.19.75.28.2.54.43.77.69l.01-.03c.15-.56.39-1.08.73-1.5.43-.55 1.04-.92 1.74-1.01.48-.06.97 0 1.44.18.49.19.91.51 1.25.94.38.48.61 1.08.66 1.71.03.35.01.7-.05 1.04-.12.66-.37 1.28-.73 1.83-.36.55-.81 1.04-1.33 1.43-.52.39-1.09.69-1.69.9-.45.15-.9.24-1.36.28l-.24.02c-.36.02-.71 0-1.06-.06-.42-.08-.82-.21-1.21-.39-.11-.05-.21-.1-.31-.16l-.03.43c-.13 1.72-.26 3.43-.39 5.15-.08 1.06-.16 2.12-.24 3.18-.05.67-.11 1.35-.16 2.02-.01.16-.03.31-.03.47 0 .15-.11.29-.26.3l-2.73.11z"/>
+                                </svg>
+                                Pagar con PayPal
+                            </button>
+                        </div>
+                        
+                        <!-- Hotel Payment Details -->
+                        <div id="hotelDetails" class="hotel-details" style="display: none;">
+                            <div class="info-box">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                </svg>
+                                <div>
+                                    <p><strong>Pago en el hotel</strong></p>
+                                    <p>No se realizará ningún cargo ahora. Pagarás directamente en el hotel durante tu estancia.</p>
+                                    <p>Se requiere una tarjeta válida para garantizar la reserva.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Terms and Conditions -->
+                    <section class="form-section">
+                        <div class="terms-section">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="termsCheckbox" required>
+                                <span>He leído y acepto los <a href="#" target="_blank">términos y condiciones</a> 
+                                      y la <a href="#" target="_blank">política de privacidad</a> *</span>
+                            </label>
+                            <span class="form-error" id="termsError"></span>
+                            
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="marketingCheckbox">
+                                <span>Deseo recibir ofertas y promociones por email</span>
+                            </label>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Booking Summary -->
+                <aside class="booking-summary">
+                    <h3 class="summary-title">Resumen de tu reserva</h3>
+                    
+                    <!-- Dates Summary -->
+                    <div class="summary-section">
+                        <h4>Fechas</h4>
+                        <div class="summary-row">
+                            <span>Check-in:</span>
+                            <span id="summaryCheckIn">--</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Check-out:</span>
+                            <span id="summaryCheckOut">--</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Noches:</span>
+                            <span id="summaryNights">--</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rooms Summary -->
+                    <div class="summary-section">
+                        <h4>Habitaciones</h4>
+                        <div id="roomsSummaryList"></div>
+                    </div>
+                    
+                    <!-- Extras Summary -->
+                    <div class="summary-section" id="extrasSummarySection" style="display: none;">
+                        <h4>Extras</h4>
+                        <div id="extrasSummaryList"></div>
+                    </div>
+                    
+                    <!-- Price Summary -->
+                    <div class="summary-section">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="summarySubtotal">€0</span>
+                        </div>
+                        <div class="summary-row" id="summaryDiscountRow" style="display: none;">
+                            <span>Descuento:</span>
+                            <span id="summaryDiscount" class="text-success">-€0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Impuestos:</span>
+                            <span id="summaryTaxes">€0</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="summaryTotal">€0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Security badges -->
+                    <div class="security-section">
+                        <p class="security-title">Pago seguro</p>
+                        <div class="security-badges">
+                            <img src="https://cdn.jsdelivr.net/gh/muhammederdem/credit-card-form/src/assets/images/ssl.png" 
+                                 alt="SSL Secure" height="30">
+                            <img src="https://cdn.jsdelivr.net/gh/muhammederdem/credit-card-form/src/assets/images/verified.png" 
+                                 alt="Verified" height="30">
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="booking-footer">
+        <div class="container">
+            <div class="footer-content">
+                <button class="btn-text" id="backStep">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M12 14l-4-4 4-4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Atrás
+                </button>
+                <div class="footer-info">
+                    <p class="footer-tooltip" id="footerTooltip">Completa todos los campos para continuar</p>
+                </div>
+                <button class="btn-primary" id="payButton" disabled>
+                    <span id="payButtonText">Pagar ahora</span>
+                    <span class="loading-spinner" style="display: none;"></span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/state.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/step-3.js"></script>
+</body>
+</html>
