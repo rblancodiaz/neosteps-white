@@ -83,8 +83,8 @@
         elements.guestCountry.textContent = countryNames[state.customerInfo.country] || state.customerInfo.country;
         
         // Stay details
-        elements.checkInDate.textContent = BookingUtils.formatDate(state.dates.checkIn, 'long');
-        elements.checkOutDate.textContent = BookingUtils.formatDate(state.dates.checkOut, 'long');
+        elements.checkInDate.textContent = BookingUtils.formatDateForDisplay(state.dates.checkIn);
+        elements.checkOutDate.textContent = BookingUtils.formatDateForDisplay(state.dates.checkOut);
         elements.nightsCount.textContent = `${state.dates.nights} noche${state.dates.nights > 1 ? 's' : ''}`;
         
         // Rooms
@@ -210,8 +210,8 @@ País: ${countryNames[state.customerInfo.country] || state.customerInfo.country}
 
 DETALLES DE LA ESTANCIA
 -----------------------
-Check-in: ${BookingUtils.formatDate(state.dates.checkIn, 'long')}
-Check-out: ${BookingUtils.formatDate(state.dates.checkOut, 'long')}
+Check-in: ${BookingUtils.formatDateForDisplay(state.dates.checkIn)}
+Check-out: ${BookingUtils.formatDateForDisplay(state.dates.checkOut)}
 Noches: ${state.dates.nights}
 
 HABITACIONES
@@ -255,7 +255,7 @@ Email: contact@hotelmonnaie.com
     // Start new booking
     const startNewBooking = () => {
         if (confirm('¿Deseas iniciar una nueva reserva? Se borrarán los datos actuales.')) {
-            BookingState.clearState();
+            BookingState.reset();
             BookingUtils.navigateToStep(1);
         }
     };
@@ -329,31 +329,3 @@ Email: contact@hotelmonnaie.com
         init();
     }
 })();
-
-// M3 Confetti Effect Enhancement
-const addM3ConfettiEffect = () => {
-    const colors = [
-        'var(--md-sys-color-primary)',
-        'var(--md-sys-color-secondary)', 
-        'var(--md-sys-color-tertiary)',
-        'var(--color-success)'
-    ];
-    
-    for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDelay = Math.random() * 3 + 's';
-            document.body.appendChild(confetti);
-            
-            setTimeout(() => {
-                confetti.remove();
-            }, 4000);
-        }, i * 100);
-    }
-};
-
-// Actualizar la función addConfettiEffect existente
-const addConfettiEffect = addM3ConfettiEffect;

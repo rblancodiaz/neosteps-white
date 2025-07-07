@@ -118,6 +118,10 @@
             </button>`;
         }
         
+        // Month names for ARIA labels
+        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        
         // Current month days
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const date = new Date(year, month, day);
@@ -140,9 +144,17 @@
             // Generate random price for demo
             const price = isPast ? '' : `€${Math.floor(Math.random() * 50) + 80}`;
             
-            html += `<button class="${classes}" data-date="${date.toISOString()}" ${isPast ? 'disabled' : ''}>
-                <span class="day-number">${day}</span>
-                <span class="day-price">${price}</span>
+            // Create ARIA label
+            const ariaLabel = `${day} de ${monthNames[month]} de ${year}${price ? `, precio ${price}` : ''}${isSelected ? ', seleccionado' : ''}${isCheckIn ? ' como fecha de entrada' : ''}${isCheckOut ? ' como fecha de salida' : ''}`;
+            
+            html += `<button class="${classes}" 
+                     data-date="${date.toISOString()}" 
+                     ${isPast ? 'disabled' : ''}
+                     aria-label="${ariaLabel}"
+                     aria-pressed="${isSelected ? 'true' : 'false'}"
+                     role="gridcell">
+                <span class="day-number" aria-hidden="true">${day}</span>
+                <span class="day-price" aria-hidden="true">${price}</span>
             </button>`;
         }
         
@@ -157,8 +169,6 @@
         elements.calendarGrid.innerHTML = html;
         
         // Update month display
-        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
-                          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         if (elements.currentMonth) {
             elements.currentMonth.textContent = `${monthNames[month]} ${year}`;
         }
@@ -245,7 +255,7 @@
     };
     
     // Handle room/guest counters
-    const updateCounter = (element, value, min, max) => {
+    const updateCounter = (element, value, min, max, type) => {
         if (!element) return false;
         
         const current = parseInt(element.textContent);
@@ -253,6 +263,11 @@
         
         if (newValue >= min && newValue <= max) {
             element.textContent = newValue;
+            
+            // Update ARIA live region
+            const announcement = `${type} cambiado a ${newValue}`;
+            BookingUtils.announceToScreenReader(announcement);
+            
             updateCounterButtons();
             updateNextButton();
             saveCurrentState();
@@ -388,37 +403,43 @@
         
         // Room counters
         if (elements.decreaseRooms) {
+            elements.decreaseRooms.setAttribute('aria-label', 'Disminuir número de habitaciones');
             elements.decreaseRooms.addEventListener('click', () => {
-                updateCounter(elements.roomCount, -1, 1, 6);
+                updateCounter(elements.roomCount, -1, 1, 6, 'Número de habitaciones');
             });
         }
         if (elements.increaseRooms) {
+            elements.increaseRooms.setAttribute('aria-label', 'Aumentar número de habitaciones');
             elements.increaseRooms.addEventListener('click', () => {
-                updateCounter(elements.roomCount, 1, 1, 6);
+                updateCounter(elements.roomCount, 1, 1, 6, 'Número de habitaciones');
             });
         }
         
         // Adult counters
         if (elements.decreaseAdults) {
+            elements.decreaseAdults.setAttribute('aria-label', 'Disminuir número de adultos');
             elements.decreaseAdults.addEventListener('click', () => {
-                updateCounter(elements.adultCount, -1, 1, 8);
+                updateCounter(elements.adultCount, -1, 1, 8, 'Número de adultos');
             });
         }
         if (elements.increaseAdults) {
+            elements.increaseAdults.setAttribute('aria-label', 'Aumentar número de adultos');
             elements.increaseAdults.addEventListener('click', () => {
-                updateCounter(elements.adultCount, 1, 1, 8);
+                updateCounter(elements.adultCount, 1, 1, 8, 'Número de adultos');
             });
         }
         
         // Children counters
         if (elements.decreaseChildren) {
+            elements.decreaseChildren.setAttribute('aria-label', 'Disminuir número de niños');
             elements.decreaseChildren.addEventListener('click', () => {
-                updateCounter(elements.childCount, -1, 0, 6);
+                updateCounter(elements.childCount, -1, 0, 6, 'Número de niños');
             });
         }
         if (elements.increaseChildren) {
+            elements.increaseChildren.setAttribute('aria-label', 'Aumentar número de niños');
             elements.increaseChildren.addEventListener('click', () => {
-                updateCounter(elements.childCount, 1, 0, 6);
+                updateCounter(elements.childCount, 1, 0, 6, 'Número de niños');
             });
         }
         

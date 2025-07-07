@@ -843,7 +843,17 @@
    
    // Save selection
    const saveSelection = () => {
+       // Validate current room selection
+       if (!currentRoomSelection || !selectedRate) {
+           console.error('No room or rate selected');
+           return false;
+       }
+       
        const rate = currentRoomSelection.rates.find(r => r.id === selectedRate);
+       if (!rate) {
+           console.error('Selected rate not found');
+           return false;
+       }
        
        // For single room booking
        const roomSelection = {
@@ -859,12 +869,15 @@
        // Save to state
        BookingState.setState({
            selectedRooms: [roomSelection],
-           extras: selectedExtras,
-           customerInfo: {
-               ...state.customerInfo,
-               specialRequests: elements.specialRequests.value
-           }
+           extras: selectedExtras
        });
+       
+       // Save special requests if provided
+       if (elements.specialRequests && elements.specialRequests.value) {
+           BookingState.setNestedState('customerInfo', {
+               specialRequests: elements.specialRequests.value
+           });
+       }
        
        // Recalculate pricing
        BookingState.calculatePricing();

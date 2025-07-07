@@ -129,6 +129,64 @@ const BookingUtils = (() => {
         return phoneRegex.test(phone.replace(/\s/g, ''));
     };
     
+    // Validate credit card number using Luhn algorithm
+    const validateCardNumber = (cardNumber) => {
+        // Remove spaces and non-digits
+        const cleanNumber = cardNumber.replace(/\D/g, '');
+        
+        // Check if it's a valid length (13-19 digits)
+        if (cleanNumber.length < 13 || cleanNumber.length > 19) {
+            return false;
+        }
+        
+        // Luhn algorithm
+        let sum = 0;
+        let isEven = false;
+        
+        for (let i = cleanNumber.length - 1; i >= 0; i--) {
+            let digit = parseInt(cleanNumber[i]);
+            
+            if (isEven) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+            
+            sum += digit;
+            isEven = !isEven;
+        }
+        
+        return sum % 10 === 0;
+    };
+    
+    // Validate card expiry date
+    const validateExpiry = (expiry) => {
+        const parts = expiry.split('/');
+        if (parts.length !== 2) return false;
+        
+        const month = parseInt(parts[0]);
+        const year = parseInt('20' + parts[1]);
+        
+        if (month < 1 || month > 12) return false;
+        
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+        
+        // Check if card is expired
+        if (year < currentYear || (year === currentYear && month < currentMonth)) {
+            return false;
+        }
+        
+        // Check if year is not too far in the future (max 20 years)
+        if (year > currentYear + 20) {
+            return false;
+        }
+        
+        return true;
+    };
+    
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('es-ES', {
             style: 'currency',
@@ -401,6 +459,8 @@ const BookingUtils = (() => {
         // Form validation
         validateEmail,
         validatePhone,
+        validateCardNumber,
+        validateExpiry,
         
         // Formatting
         formatCurrency,

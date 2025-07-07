@@ -489,6 +489,14 @@
         
         // Initial validation
         validateForm();
+        
+        // Back button handler
+        const backButton = document.getElementById('backStep');
+        if (backButton) {
+            backButton.addEventListener('click', () => {
+                BookingUtils.navigateToStep(2);
+            });
+        }
     };
     
     // Initialize when DOM is ready
