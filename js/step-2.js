@@ -879,8 +879,6 @@
            });
        }
        
-       // Recalculate pricing
-       BookingState.calculatePricing();
    };
    
    // Initialize when DOM is ready

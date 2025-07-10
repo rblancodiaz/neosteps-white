@@ -98,7 +98,7 @@
             elements.extrasSummarySection.style.display = 'block';
             elements.extrasSummaryList.innerHTML = state.extras.map(extra => {
                 let extraTotal = extra.price;
-                if (extra.unit.includes('día')) {
+                if (extra.unit.includes('noche')) {
                     extraTotal *= state.dates.nights;
                 }
                 if (extra.unit.includes('persona')) {

@@ -44,10 +44,12 @@ const BookingUtils = (() => {
     const navigateToStep = (step) => {
         const currentStep = getCurrentStep();
         
-        // Validate current step before navigation
-        if (!BookingState.validateStep(currentStep)) {
-            showNotification('Por favor, completa todos los campos requeridos', 'error');
-            return false;
+        // Validate current step only when navigating forward
+        if (step > currentStep) {
+            if (!BookingState.validateStep(currentStep)) {
+                showNotification('Por favor, completa todos los campos requeridos', 'error');
+                return false;
+            }
         }
         
         // Update state

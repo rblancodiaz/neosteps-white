@@ -316,7 +316,7 @@ const BookingState = (() => {
                                currentState.selectedRooms.length > 0;
                                
                     case 3:
-                        return currentState.payment.method && 
+                        return currentState.paymentInfo && currentState.paymentInfo.method && 
                                currentState.customerInfo.firstName && 
                                currentState.customerInfo.lastName && 
                                currentState.customerInfo.email &&
