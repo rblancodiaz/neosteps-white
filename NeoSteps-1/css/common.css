@@ -464,6 +464,12 @@ body {
     color: var(--md-sys-color-on-surface-variant);
 }
 
+.footer-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 /* === UTILITIES === */
 .hidden {
     display: none !important;
